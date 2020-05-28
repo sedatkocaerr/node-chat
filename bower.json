@@ -1,0 +1,17 @@
+{
+  "name": "chatdad",
+  "description": "",
+  "main": "",
+  "authors": [
+    "sedatkocaer <sedatkocaer3734@hotmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chat",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/sedatkocaer34/node-chat",
+  "dependencies": {
+    "angular": "^1.7.9"
+  }
+}
