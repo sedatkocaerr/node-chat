@@ -6,6 +6,7 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 const passport = require('passport');
 const session = require('express-session');
+const redisStore = require('./helpers/redisstore');
 dotenv.config();
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 
 // Express session
 app.use(session({
+  store:redisStore,
   secret:process.env.SECRET_KEY_SESSION,
   resave:false,
   saveUninitialized:true,

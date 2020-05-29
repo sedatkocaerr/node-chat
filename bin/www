@@ -49,6 +49,17 @@ function normalizePort(val) {
   return false;
 }
 
+
+/**
+  Socket.Io
+ */
+
+const socketapi = require('../src/socketApi.js');
+const io = socketapi.io;
+io.attach(server);
+
+
+
 /**
  * Event listener for HTTP server "error" event.
  */
