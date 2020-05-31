@@ -43,7 +43,7 @@ app.use(session({
   cookie:{maxAge:14*24*3600000}
 }));
 app.use(passport.initialize());
-app.use(passport.session())
+app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/chat',isAuthenticated,chatRouter);
