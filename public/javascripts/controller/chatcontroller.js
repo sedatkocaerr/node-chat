@@ -6,6 +6,7 @@ app.controller('chatController',['$scope',($scope)=>{
     $scope.chatName = "";
     $scope.message ="";
     $scope.roomId="";
+    $scope.messagelist=[];
 
     const socket = io.connect("http://localhost:3000");
 
@@ -37,6 +38,7 @@ app.controller('chatController',['$scope',($scope)=>{
         $scope.chatClicked = true;
         $scope.chatName=room.name;
         $scope.roomId=room.id;
+        socket.emit("messagelist",$scope.roomId);
     };
 
     $scope.newMessage = () =>{
@@ -48,5 +50,12 @@ app.controller('chatController',['$scope',($scope)=>{
         $scope.message="";
     };
 
+     
+
+    socket.on("getmessagelist",messagelist=>{
+        $scope.messagelist[$scope.roomId]=messagelist;
+        console.log(messagelist);
+        $scope.$apply();
+    });
     
 }]);

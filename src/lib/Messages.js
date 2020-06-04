@@ -1,4 +1,5 @@
 const redisClient = require('../redisClient');
+const _ = require('lodash');
 const shortid = require('shortid');
 function Messages(){
     this.client = redisClient.getRedis();
@@ -25,4 +26,27 @@ Messages.prototype.upsert = function (roomId,message,username,surname){
             } 
         }
     )
+};
+
+
+Messages.prototype.list = function (roomId,callback){
+
+    let messagelistdata = []
+    this.client.hgetall(
+        'messages:'+roomId,
+        function(err,messagelist){
+            if(err)
+            {
+                console.log(messagelist);
+                return null;
+            }
+
+          for (let message in messagelist){
+            messagelistdata.push(JSON.parse(messagelist[message]));
+          }  
+
+          return callback(_.orderBy(messagelistdata,'when','asc'));
+        }
+    )
+
 };

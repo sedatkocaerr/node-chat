@@ -32,7 +32,7 @@ io.on('connection',socket =>{
     });
 
     socket.on('disconnect',()=>{
-        Users.remove(socket.request.user.googleId);
+        Users.remove(socket.request.user._id);
 
         Users.list(users =>{
             io.emit('onlinelist',users);
@@ -57,6 +57,13 @@ io.on('connection',socket =>{
             socket.request.user.name,
             socket.request.user.surname
         );
+        
+    });
+
+    socket.on('messagelist',roomId =>{
+        Messages.list(roomId ,messagelist=>{
+            socket.emit("getmessagelist",messagelist);
+        });
         
     });
     
