@@ -55,17 +55,13 @@ io.on('connection',socket =>{
         Messages.upsert(message.roomId,
             message.message,
             socket.request.user.name,
-            socket.request.user.surname
+            socket.request.user.surname,
+            socket.request.user._id
         );
-        
+        socket.broadcast.emit('newMessageRooms',message);
     });
 
-    socket.on('messagelist',roomId =>{
-        Messages.list(roomId ,messagelist=>{
-            socket.emit("getmessagelist",messagelist);
-        });
-        
-    });
+    
     
 });
 

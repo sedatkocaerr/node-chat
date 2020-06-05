@@ -35,9 +35,11 @@ block content
           .top
             span
               span.name {{chatName}}
-          .chat.active-chat
-            .bubble.you(
+          .loading(ng-show="loadingMessages")   loading...
+          .chat.active-chat(ng-show="!loadingMessages")
+            .bubble(
                  ng-repeat="message in messagelist[roomId]",
+                 ng-class="{false:'you' , true:'me'}[message.userId==user._id]"
                  )
               span {{message.username}} &nbsp; {{message.surname}}
               | {{message.message}}
@@ -47,11 +49,13 @@ block content
             //- .bubble.me ... about who we used to be.
             //- .bubble.me Are you serious?
             
-          .write
+          .write(ng-show="!loadingMessages")
            form(ng-submit="newMessage()")
              input(type='text' ng-model="message" id="inputmessage")
              a.write-link.send(ng-click="newMessage()")
 
 append javascripts
   script(src="http://localhost:3000/socket.io/socket.io.js")
+  script(src="/javascripts/services/userFactory.js")
+  script(src="/javascripts/services/chatFactory.js")
   script(src="/javascripts/controller/chatController.js")
